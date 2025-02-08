@@ -1,13 +1,98 @@
 ---
-// src/components/InteractiveFigBranch.astro
 import { Image } from 'astro:assets';
-import figImage from '../assets/fig_branch_official.svg';  // Updated filename
+import figImage from '../assets/fig_branch_official.svg';
 ---
 
-<div class="relative max-w-2xl mx-auto">
-  <Image 
-    src={figImage} 
-    alt="Fig branch with leaves and fruits" 
-    class="w-full"
-  />
-  
+<div class="flex items-center justify-center w-full h-full" id="figContainer">
+    <Image 
+        src={figImage} 
+        alt="Fig branch with leaves and fruits" 
+        width={900}
+        height={900}
+        class="w-full max-w-2xl hidden"
+        id="originalFig"
+    />
+    
+    <div id="debugInfo">
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const img = document.getElementById('originalFig');
+        const debugInfo = document.getElementById('debugInfo');
+        const container = document.getElementById('figContainer');
+
+        if (!img || !debugInfo || !container) {
+            console.error('Required elements not found');
+            return;
+        }
+
+        try {
+            const response = await fetch(img.getAttribute('src') || '');
+            const svgText = await response.text();
+            
+            container.innerHTML = svgText;
+            
+            const svg = container.querySelector('svg');
+            if (!svg) {
+                console.error('SVG not found in response');
+                return;
+            }
+
+            svg.classList.add('w-full', 'max-w-2xl');
+            
+            const paths = svg.querySelectorAll('path');
+            paths.forEach((path, index) => {
+                // Get path properties to help identify it
+                const bounds = path.getBBox();
+                const pathLength = path.getTotalLength();
+                
+                // Identify likely type based on properties
+                let partType = "unknown";
+                if (pathLength < 120) {
+                    partType = "Likely a fig (small, round path)";
+                } else if (pathLength < 150) {
+                    partType = "Likely a leaf (medium path)";
+                } else {
+                    partType = "Likely a branch (long path)";
+                }
+
+                path.style.stroke = 'black';
+                path.style.strokeWidth = '2';
+                path.style.fill = 'none';
+                path.style.transition = 'all 0.3s ease';
+                path.style.cursor = 'pointer';
+                
+                path.addEventListener('mouseenter', () => {
+                    path.style.fill = 'rgba(255, 0, 0, 0.2)';
+                    path.style.stroke = 'black';
+                    if (debugInfo) {
+                        debugInfo.innerHTML = `
+                            Path ${index}<br>
+                            Type: ${partType}<br>
+                            Size: ${Math.round(bounds.width)}x${Math.round(bounds.height)}<br>
+                            Position: (${Math.round(bounds.x)}, ${Math.round(bounds.y)})
+                        `;
+                    }
+                });
+                
+                path.addEventListener('mouseleave', () => {
+                    path.style.fill = 'none';
+                    path.style.stroke = 'black';
+                });
+                
+                path.addEventListener('click', () => {
+                    console.log(`Clicked path ${index}:`, {
+                        type: partType,
+                        size: `${Math.round(bounds.width)}x${Math.round(bounds.height)}`,
+                        position: `(${Math.round(bounds.x)}, ${Math.round(bounds.y)})`
+                    });
+                });
+            });
+            
+        } catch (error) {
+            console.error('Error loading SVG:', error);
+        }
+    });
+</script>

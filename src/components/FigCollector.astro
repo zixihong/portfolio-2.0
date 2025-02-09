@@ -1,0 +1,79 @@
+---
+// script to get the paths from each fig by clicking. reset after each use.
+import { Image } from 'astro:assets';
+import figImage from '../assets/fig_branch_official.svg';
+---
+
+<div id= "figContainer">
+    <Image 
+        src={figImage} 
+        alt="Fig branch with leaves and fruits" 
+        width={900}
+        height={900}
+        class="w-full max-w-2xl hidden"
+        id="originalFig"
+    />
+
+
+</div>
+
+<button type = "button" id = "button">
+    delete
+</button>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async () => {
+        const img = document.getElementById("originalFig");
+        const container = document.getElementById("figContainer");
+        let path_array: number[] = [];
+
+        if (!img || !container) {
+            return;
+        }
+
+        try {
+            const response = await fetch(img?.getAttribute('src') || '');
+            const svgText = await response.text();
+            container.innerHTML = svgText;
+
+            const paths = document.querySelectorAll('path')
+
+            paths.forEach((path, index) => { // tracks each path and its index --> same as python for index, path in enumerate(paths)            
+                path.style.cursor = 'pointer';
+
+                path.addEventListener('mouseenter', () =>{
+                    if (!path_array.includes(index)){
+                        path.style.fill = 'rgba(255, 0, 0, 0.2)';
+                    }
+                    
+                });
+
+                path.addEventListener('click', () => {
+                    if (path_array.includes(index)) {
+                        console.log(`${index} is already in array`);
+                    }
+                    else {
+                        path.style.fill = 'rgb(0, 255, 0)';
+                        path_array.push(index);
+                        console.log(path_array)
+                    }
+                });
+
+                path.addEventListener('mouseleave', () => {
+                    if (!path_array.includes(index)) {
+                        path.style.fill = 'rgb(0, 0, 0)'
+                    }
+                })
+            });
+        } 
+        catch(error) {
+            return;
+        }
+
+        const button = document.getElementById('button');
+        button?.addEventListener("click", () => {
+            path_array.length = 0;
+            console.log(`${path_array} cleared`);
+        });
+    });
+</script>

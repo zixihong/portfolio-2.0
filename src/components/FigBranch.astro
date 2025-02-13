@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import figImage from '../assets/fig_branch_official.svg';
+---
+
+<div id="figContainer" class="w-full max-w-2xl overflow-hidden">
+    <Image 
+        src={figImage} 
+        alt="bh's fig branch" 
+        width={900}
+        height={900}
+        id="figBranch"
+    />
+</div>
+
+<script>
+    (function initFigBranch() {
+        const init = async () => {
+            const img = document.getElementById("figBranch");
+            const container = document.getElementById("figContainer");
+            const low = [5, 102, 218, 186, 289, 156, 130, 117, 42, 120, 140, 296, 303, 35, 63, 310, 92, 350, 370, 49, 177, 58, 319, 124, 153, 361, 395, 352, 291, 239, 20, 176, 233, 276, 217, 263, 304, 50, 347, 290, 158, 359, 257, 206, 318, 277, 210, 68, 272, 144, 260, 202, 372, 172, 44, 211, 333, 61, 83, 197, 334, 338, 126, 351, 360];
+            const middleLow = [204, 4, 247, 367, 342, 121, 241, 221, 114, 95, 167, 312, 299, 84, 69, 275, 189, 183, 105, 85, 201, 288, 364, 45, 321, 215, 243, 222, 106, 238, 97, 187, 399, 344, 88, 220, 199, 86, 398, 38, 214, 236, 357, 190];
+            const middleUpper = [59, 135, 93, 73, 405, 332, 403, 404, 51, 155, 107, 216, 252, 212, 282, 139, 62, 251, 67, 232, 317, 141, 349, 324];
+            const upper = [7, 81, 228, 388, 200, 195, 309, 56, 53, 316, 19, 143, 377, 208, 268, 223, 256, 207, 169, 392, 231, 387, 358, 301, 400, 401, 376, 194, 163, 60, 369, 162, 326, 46, 315, 112, 259, 115, 55, 323, 385]
+            const all = [...low, ...middleLow, ...middleUpper, ...upper];
+
+            try {
+                const response = await fetch(img?.getAttribute('src') || '');
+                const svgText = await response.text();
+                const svgWrapper = document.createElement('div');
+                svgWrapper.innerHTML = svgText;
+                const svgElement = svgWrapper.querySelector('svg');
+                
+                if (svgElement) svgElement.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+                if (svgElement) svgElement.setAttribute('width', '49%');
+                if (svgElement) svgElement.setAttribute('height', '49%');
+                if (svgElement) svgElement.setAttribute('viewBox', '0 0 650 650');
+               
+                if (container) container.innerHTML = '';
+                if (svgElement) container?.appendChild(svgElement);
+
+                const paths = document.querySelectorAll<SVGPathElement>('path');
+
+                paths.forEach((path, index) => {
+                    if (all.includes(index)) {
+                        path.dataset.figGroup = [
+                            low.includes(index) ? 'low' : '',
+                            middleLow.includes(index) ? 'middleLow' : '',
+                            middleUpper.includes(index) ? 'middleUpper' : '',
+                            upper.includes(index) ? 'upper' : ''
+                        ].filter(Boolean).join(' ');
+                        path.style.pointerEvents = 'bounding-box';
+                        path.style.stroke = 'transparent';
+                        path.style.strokeWidth = '5px';
+                        path.style.cursor = 'pointer';
+                        path.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
+                        path.style.fill = 'rgb(60, 0, 60, 0.75)';
+                    }
+                });
+                // low 
+                paths.forEach((path, index) => {
+                    if (low.includes(index)) {
+                        path.addEventListener('mouseenter', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="low"]').forEach(p => {
+                                p.style.fill = 'rgba(255,0,255,0.3)';
+                            });
+                        });
+                        path.addEventListener('mouseleave', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="low"]').forEach(p => {
+                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
+                                p.style.fill = 'rgb(60, 0, 60, 0.75)';
+                            });
+                        });
+                    }
+                });
+            } catch(error) {
+                return;
+            }
+        };
+
+        if (document.readyState === 'complete') {
+            requestIdleCallback(init, { timeout: 2000 });
+        } else {
+            window.addEventListener('load', () => {
+                requestIdleCallback(init, { timeout: 2000 });
+            });
+        }
+    })();
+</script>

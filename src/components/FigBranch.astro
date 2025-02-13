@@ -50,82 +50,67 @@ import figImage from '../assets/fig_branch_official.svg';
 
                 const paths = document.querySelectorAll<SVGPathElement>('path');
 
+                const tooltip = document.createElement('button');
+                tooltip.innerHTML = 'Bryan Hong ↗';
+                tooltip.style.cssText = `
+                    position: fixed;
+                    right: 25%;
+                    top: 20%;
+                    transform: translateY(-50%);
+                    background: rgba(0, 0, 0, 0.5);
+                    color: #fff;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    max-width: 200px;
+                    font-size: 1.1rem;
+                    line-height: 1.4;
+                    display: block;
+                    z-index: 1000;
+                    border: none;
+                    cursor: pointer;
+                `;
+                tooltip.addEventListener('click', () => {
+                    window.open('https://linktr.ee/zixihong', '_blank');
+                });
+                container?.appendChild(tooltip);
+
+                const showTooltip = (event: MouseEvent, content: string) => {
+                    tooltip.textContent = content;
+                };
+
+                const hideTooltip = () => {
+                    tooltip.textContent = 'Bryan Hong ↗';
+                };
+
                 paths.forEach((path, index) => {
                     if (all.includes(index)) {
-                        path.dataset.figGroup = [
-                            low.includes(index) ? 'low' : '',
-                            middleLow.includes(index) ? 'middleLow' : '',
-                            middleUpper.includes(index) ? 'middleUpper' : '',
-                            upper.includes(index) ? 'upper' : ''
-                        ].filter(Boolean).join(' ');
                         path.style.pointerEvents = 'bounding-box';
                         path.style.stroke = 'transparent';
                         path.style.strokeWidth = '5px';
                         path.style.cursor = 'pointer';
                         path.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
                         path.style.fill = 'rgb(60, 0, 60, 0.75)';
-                    }
-                });
-                // low 
-                paths.forEach((path, index) => {
-                    if (low.includes(index)) {
-                        path.addEventListener('mouseenter', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="low"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
-                            });
+
+                        let tooltipContent = '';
+                        if (low.includes(index)) tooltipContent = 'Entrepreneur';
+                        if (middleLow.includes(index)) tooltipContent = 'Researcher';
+                        if (middleUpper.includes(index)) tooltipContent = 'Writer';
+                        if (upper.includes(index)) tooltipContent = 'Engineer';
+
+                        path.addEventListener('mouseenter', (event: MouseEvent) => {
+                            showTooltip(event, tooltipContent);
                         });
+
+                        path.addEventListener('mousemove', (event) => {
+                        });
+
                         path.addEventListener('mouseleave', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="low"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
-                            });
+                            hideTooltip();
                         });
+
                     }
                 });
-                // middleLow
-                paths.forEach((path, index) => {
-                    if (middleLow.includes(index)) {
-                        path.addEventListener('mouseenter', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleLow"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
-                            });
-                        });
-                        path.addEventListener('mouseleave', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleLow"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
-                            });
-                        });
-                    }
-                });
-                // middleUpper
-                paths.forEach((path, index) => {
-                    if (middleUpper.includes(index)) {
-                        path.addEventListener('mouseenter', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleUpper"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
-                            });
-                        });
-                        path.addEventListener('mouseleave', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleUpper"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
-                            });
-                        });
-                    }
-                });
-                // upper
-                paths.forEach((path, index) => {
-                    if (upper.includes(index)) {
-                        path.addEventListener('mouseenter', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="upper"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
-                            });
-                        });
-                        path.addEventListener('mouseleave', () => {
-                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="upper"]').forEach(p => {
-                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
-                            });
-                        });
-                    }
-                });
+            
             } catch(error) {
                 return;
             }

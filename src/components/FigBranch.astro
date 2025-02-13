@@ -13,6 +13,15 @@ import figImage from '../assets/fig_branch_official.svg';
     />
 </div>
 
+<style>
+    #figContainer {
+        filter: drop-shadow(0 0 30px rgba(3, 98, 0, 0.8));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
 <script>
     (function initFigBranch() {
         const init = async () => {
@@ -62,13 +71,57 @@ import figImage from '../assets/fig_branch_official.svg';
                     if (low.includes(index)) {
                         path.addEventListener('mouseenter', () => {
                             document.querySelectorAll<SVGPathElement>('[data-fig-group~="low"]').forEach(p => {
-                                p.style.fill = 'rgba(255,0,255,0.3)';
+                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
                             });
                         });
                         path.addEventListener('mouseleave', () => {
                             document.querySelectorAll<SVGPathElement>('[data-fig-group~="low"]').forEach(p => {
                                 p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
-                                p.style.fill = 'rgb(60, 0, 60, 0.75)';
+                            });
+                        });
+                    }
+                });
+                // middleLow
+                paths.forEach((path, index) => {
+                    if (middleLow.includes(index)) {
+                        path.addEventListener('mouseenter', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleLow"]').forEach(p => {
+                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
+                            });
+                        });
+                        path.addEventListener('mouseleave', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleLow"]').forEach(p => {
+                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
+                            });
+                        });
+                    }
+                });
+                // middleUpper
+                paths.forEach((path, index) => {
+                    if (middleUpper.includes(index)) {
+                        path.addEventListener('mouseenter', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleUpper"]').forEach(p => {
+                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
+                            });
+                        });
+                        path.addEventListener('mouseleave', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="middleUpper"]').forEach(p => {
+                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
+                            });
+                        });
+                    }
+                });
+                // upper
+                paths.forEach((path, index) => {
+                    if (upper.includes(index)) {
+                        path.addEventListener('mouseenter', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="upper"]').forEach(p => {
+                                p.style.filter = 'drop-shadow(0 0 10px rgba(255,0,255,0.9)) drop-shadow(0 0 10px rgba(255,0,255,0.9))';
+                            });
+                        });
+                        path.addEventListener('mouseleave', () => {
+                            document.querySelectorAll<SVGPathElement>('[data-fig-group~="upper"]').forEach(p => {
+                                p.style.filter = 'drop-shadow(0 0 50px rgba(255,0,255,0.9)) drop-shadow(0 0 20px rgba(255,0,255,0.9))';
                             });
                         });
                     }

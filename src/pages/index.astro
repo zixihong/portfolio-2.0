@@ -1,10 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import FigBranch from '../components/FigBranch.astro';
+import Introduction from '../components/Introduction.astro';
 ---
 
 <Layout title="bh">
-        <div class="w-full max-w-xl h-full">
+    <main class="flex justify-center">
+        <div class="max-w-2xl">
+            <Introduction />
+        </div>
+        <div class="max-w-xl h-full">
             <FigBranch />
         </div>
     </main>

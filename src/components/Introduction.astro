@@ -3,12 +3,53 @@
 
 <div class="intro">
     <p>
-        “I saw my life branching out before me like the green fig tree in the story. From the tip of every branch, like a fat purple fig, a wonderful future beckoned and winked. One fig was a husband and a happy home and children, and another fig was a famous poet and another fig was a brilliant professor, and another fig was Ee Gee, the amazing editor, and another fig was Europe and Africa and South America, and another fig was Constantin and Socrates and Attila and a pack of other lovers with queer names and offbeat professions, and another fig was an Olympic lady crew champion, and beyond and above these figs were many more figs I couldn't quite make out.”
+        “I saw my life branching out before me like the <span class="green-text">green fig tree</span> in the story. From the tip of every branch, like a <span class="purple-text">fat purple fig</span>, a wonderful future beckoned and winked. One fig was a husband and a happy home and children, and another fig was a famous poet and another fig was a brilliant professor, and another fig was Ee Gee, the amazing editor, and another fig was Europe and Africa and South America, and another fig was Constantin and Socrates and Attila and a pack of other lovers with queer names and offbeat professions, and another fig was an Olympic lady crew champion, and beyond and above these figs were many more figs I couldn't quite make out.”
     </p>
     <p>
-        - Slyvia Plath, The Bell Jar
+        <b>- Slyvia Plath, The Bell Jar</b>
     </p>
 </div>
+
+<script>
+    (function initTooltip() {
+        const tooltip = document.createElement('button');
+        tooltip.innerHTML = 'my hand-drawn fig tree ↗';
+        
+        tooltip.style.cssText = `
+            position: absolute;
+            left: 1rem;
+            top: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            max-width: 200px;
+            font-size: 0.7rem;
+            line-height: 1.2;
+            display: block;
+            z-index: 1000;
+            border: none;
+            cursor: pointer;
+        `;
+
+        const mediaQuery = window.matchMedia('(max-width: 768px)');
+        const handleMobileChange = (e: MediaQueryListEvent | MediaQueryList) => {
+            if (e.matches) {
+                tooltip.style.display = 'none';
+            } else {
+                tooltip.style.display = 'block';
+            }
+        };
+        
+        mediaQuery.addEventListener('change', handleMobileChange);
+        handleMobileChange(mediaQuery); // Initial check
+        tooltip.addEventListener('click', () => {
+            window.open('https://github.com/zixihong/portfolio-2.0', '_blank');
+        });
+
+        document.body.appendChild(tooltip);
+    })();
+</script>
 
 <style>
     .intro {
@@ -18,13 +59,28 @@
         justify-content: center;
         width: 80%;
         margin: 0 auto;
-        font-size: 1.2rem;
+        font-size: clamp(1rem, 3vw, 1.2rem);
         line-height: 1.5;
-        font-family: 'Inter', sans-serif;
+        font-family: 'Space Grotesk', sans-serif;
         font-weight: 400;
-        color: #333;
-        gap: -100px;
-        
+        color: #000000;
+    }
+    .green-text {
+        color: #00ff00;
+    }
+    .purple-text {
+        color: #aa00ff;
+    }
+
+    @media (max-width: 768px) {
+        .intro {
+            width: 90%;
+            padding: 1rem;
+        }
+        .intro p {
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
     }
 </style>
 

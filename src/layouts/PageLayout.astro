@@ -1,9 +1,7 @@
 ---
-// src/layouts/Layout.astro
 interface Props {
   title: string;
 }
-
 const { title } = Astro.props;
 ---
 
@@ -17,22 +15,15 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <nav class="back-nav">
+      <a href="/" class="back-button">←</a>
+    </nav>
     <slot />
   </body>
 </html>
 
 <style is:global>
-  html {
-    font-family: 'Space Grotesk', sans-serif;
-    background: rgb(255, 255, 255);
-  }
-  
-  body {
-    margin: 0;
-    padding: 0;
-  }
-  
-  .main-nav {
+  .back-nav {
     padding: 1rem;
     position: fixed;
     top: 0;
@@ -40,10 +31,17 @@ const { title } = Astro.props;
     z-index: 1000;
   }
   
-  .site-title {
-    font-weight: 500;
-    color: #000;
+  .back-button {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
   }
-</style>
+  
+  .back-button:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+</style> 

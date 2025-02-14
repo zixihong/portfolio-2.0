@@ -15,7 +15,7 @@ import figImage from '../assets/fig_branch_official.svg';
 
 <style>
     #figContainer {
-        filter: drop-shadow(0 0 30px rgba(3, 98, 0, 0.8));
+        filter: drop-shadow(0 0 30px rgba(5, 147, 0, 0.8));
         display: flex;
         justify-content: center;
         align-items: center;
@@ -59,16 +59,55 @@ import figImage from '../assets/fig_branch_official.svg';
                     transform: translateY(-50%);
                     background: rgba(0, 0, 0, 0.5);
                     color: #fff;
-                    padding: 1rem;
+                    padding: 0.5rem 1rem;
                     border-radius: 8px;
                     max-width: 200px;
-                    font-size: 1.1rem;
-                    line-height: 1.4;
+                    font-size: 1.2rem;
+                    line-height: 1.2;
                     display: block;
                     z-index: 1000;
                     border: none;
                     cursor: pointer;
                 `;
+
+                const mobileStyle = `
+                    padding: 0.25rem 0.5rem;
+                    font-size: 0.8rem;
+                    max-width: 150px;
+                    right: 2rem;
+                    top: 2rem;
+                    transform: none;
+                `;
+
+                const desktopStyle = `
+                    position: fixed;
+                    right: 25%;
+                    top: 20%;
+                    transform: translateY(-50%);
+                    background: rgba(0, 0, 0, 0.5);
+                    color: #fff;
+                    padding: 0.5rem 1rem;
+                    border-radius: 8px;
+                    max-width: 200px;
+                    font-size: 1.2rem;
+                    line-height: 1.2;
+                    display: block;
+                    z-index: 1000;
+                    border: none;
+                    cursor: pointer;
+                `;
+
+                const mediaQuery = window.matchMedia('(max-width: 768px)');
+                const handleMobileChange = (e: MediaQueryListEvent | MediaQueryList) => {
+                    if (e.matches) {
+                        tooltip.style.cssText = desktopStyle + mobileStyle;
+                    } else {
+                        tooltip.style.cssText = desktopStyle;
+                    }
+                };
+                mediaQuery.addEventListener('change', handleMobileChange);
+                handleMobileChange(mediaQuery); // Initial check
+
                 tooltip.addEventListener('click', () => {
                     window.open('https://linktr.ee/zixihong', '_blank');
                 });
@@ -79,7 +118,7 @@ import figImage from '../assets/fig_branch_official.svg';
                 };
 
                 const hideTooltip = () => {
-                    tooltip.textContent = 'Bryan Hong ↗';
+                    tooltip.innerHTML = 'Bryan Hong ↗';
                 };
 
                 paths.forEach((path, index) => {
@@ -94,8 +133,8 @@ import figImage from '../assets/fig_branch_official.svg';
                         let tooltipContent = '';
                         if (low.includes(index)) tooltipContent = 'Entrepreneur';
                         if (middleLow.includes(index)) tooltipContent = 'Researcher';
-                        if (middleUpper.includes(index)) tooltipContent = 'Writer';
-                        if (upper.includes(index)) tooltipContent = 'Engineer';
+                        if (middleUpper.includes(index)) tooltipContent = 'Blogger';
+                        if (upper.includes(index)) tooltipContent = 'SW Engineer';
 
                         path.addEventListener('mouseenter', (event: MouseEvent) => {
                             showTooltip(event, tooltipContent);
@@ -108,6 +147,18 @@ import figImage from '../assets/fig_branch_official.svg';
                             hideTooltip();
                         });
 
+                        path.addEventListener('click', () => {
+                            const routes = {
+                                'Entrepreneur': '/entrepreneur',
+                                'Researcher': '/researcher',
+                                'Blogger': '/pure-simple-html',
+                                'SW Engineer': '/engineer'
+                            };
+                            const routeKey = tooltipContent as keyof typeof routes;
+                            if (routeKey in routes) {
+                                window.location.href = routes[routeKey];
+                            }
+                        });
                     }
                 });
             

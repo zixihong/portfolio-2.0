@@ -1,0 +1,87 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+const blogs = [
+  {
+    title: "not to get political",
+    slug: "politics",
+    date: "12/2024",
+  },
+  {
+    title: "Building Interactive SVG Visualizations",
+    slug: "svg-visualizations",
+    date: "02/2024",
+  }
+];
+---
+
+<PageLayout title="bh's blog">
+  <main class="page-content">
+    <h1>pure-simple-html</h1>
+    
+    <div class="blogs-grid">
+      {blogs.map(blog => (
+        <article class="blog-card">
+          <a href={`/blog/${blog.slug}`} class="blog-link">
+            <div class="blog-header">
+              <h3>{blog.title}</h3>
+              <span class="blog-date">{blog.date}</span>
+            </div>
+          </a>
+        </article>
+      ))}
+    </div>
+  </main>
+</PageLayout>
+
+<style>
+  .page-content {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 2rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+  }
+
+  .blogs-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .blog-card {
+    background: #fff;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+  }
+
+  .blog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+  }
+
+  .blog-date {
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  .blog-link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  @media (max-width: 768px) {
+    .blog-header {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style> 

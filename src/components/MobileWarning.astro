@@ -1,7 +1,7 @@
 <div class="mobile-warning">
   <div class="warning-content">
     <p>sorry, this experience is only available for desktop viewing.</p>
-    <p>please visit on a computer for the full interactive fig tree experience.</p>
+    <p>please visit on a computer for the interactive fig tree experience.</p>
   </div>
 </div>
 
@@ -23,7 +23,12 @@
   }
 
   .warning-content {
-    max-width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 0 2rem;
   }
 
   .warning-content h2 {
@@ -34,7 +39,7 @@
   .warning-content p {
     font-size: 1.1rem;
     line-height: 1.5;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     color: #666;
   }
 

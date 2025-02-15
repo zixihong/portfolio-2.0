@@ -20,13 +20,34 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <LoadingScreen />
-    <MobileWarning />
-    <slot />
+    <div class="desktop-content">
+      <LoadingScreen />
+      <slot />
+    </div>
+    <div class="mobile-content">
+      <MobileWarning />
+    </div>
   </body>
 </html>
 
 <style is:global>
+  .desktop-content {
+    display: block;
+  }
+  
+  .mobile-content {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .desktop-content {
+      display: none;
+    }
+    .mobile-content {
+      display: block;
+    }
+  }
+  
   html {
     font-family: 'Space Grotesk', sans-serif;
     background: rgb(255, 255, 255);

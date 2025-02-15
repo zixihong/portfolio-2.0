@@ -1,6 +1,7 @@
 ---
 // src/layouts/Layout.astro
 import LoadingScreen from '../components/LoadingScreen.astro';
+import MobileWarning from '../components/MobileWarning.astro';
 
 interface Props {
   title: string;
@@ -20,6 +21,7 @@ const { title } = Astro.props;
   </head>
   <body>
     <LoadingScreen />
+    <MobileWarning />
     <slot />
   </body>
 </html>

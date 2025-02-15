@@ -1,0 +1,46 @@
+<div class="mobile-warning">
+  <div class="warning-content">
+    <p>sorry, this experience is only available for desktop viewing.</p>
+    <p>please visit on a computer for the full interactive fig tree experience.</p>
+  </div>
+</div>
+
+<style>
+  .mobile-warning {
+    position: fixed;
+    font-family: 'Space Grotesk', sans-serif;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    z-index: 10000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: left;
+  }
+
+  .warning-content {
+    max-width: 400px;
+  }
+
+  .warning-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  .warning-content p {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    color: #666;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-warning {
+      display: flex;
+    }
+  }
+</style> 

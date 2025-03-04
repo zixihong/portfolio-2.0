@@ -32,12 +32,34 @@
             cursor: pointer;
         `;
 
+        const tooltipRight = document.createElement('button');
+        tooltipRight.innerHTML = 'want to know how i made this? ↗';
+        
+        tooltipRight.style.cssText = `
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            max-width: 400px;
+            font-size: 0.8rem;
+            line-height: 1.2;
+            display: block;
+            z-index: 1000;
+            border: none;
+            cursor: pointer;
+        `;
+
         const mediaQuery = window.matchMedia('(max-width: 768px)');
         const handleMobileChange = (e: MediaQueryListEvent | MediaQueryList) => {
             if (e.matches) {
                 tooltip.style.display = 'none';
+                tooltipRight.style.display = 'none';
             } else {
                 tooltip.style.display = 'block';
+                tooltipRight.style.display = 'block';
             }
         };
         
@@ -47,7 +69,12 @@
             window.open('https://github.com/zixihong/portfolio-2.0', '_blank');
         });
 
+        tooltipRight.addEventListener('click', () => {
+            window.open('https://github.com/zixihong/svg-path-collector', '_blank');
+        });
+
         document.body.appendChild(tooltip);
+        document.body.appendChild(tooltipRight);
     })();
 </script>
 

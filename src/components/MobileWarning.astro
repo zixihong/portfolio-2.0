@@ -1,7 +1,6 @@
 <div class="mobile-warning">
   <div class="warning-content">
     <p><b>sorry, the fig tree experience is not available in safari browsers.</b></p>
-    <p>please use chrome, firefox, or another browser for the best experience.</p>
     <p>- bryan hong</p>
     <!-- <p>sorry, please visit on a computer for the interactive fig tree experience.</p> -->
   </div>
@@ -11,8 +10,6 @@
   // Safari detection function
   function isSafari() {
     const ua = window.navigator.userAgent;
-    // Check if it has Safari in the user agent but not Chrome
-    // This works for desktop Safari
     const isSafariDesktop = ua.includes('Safari') && !ua.includes('Chrome');
     
     // For iOS Safari (including iOS devices that might use other browser apps)

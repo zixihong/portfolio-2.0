@@ -1,10 +1,43 @@
 <div class="mobile-warning">
   <div class="warning-content">
-    <p><b>sorry, the fig tree experience is only available for desktop viewing.</b></p>
-    <p>- bryan hong</span></p>
+    <p><b>sorry, the fig tree experience is not available in safari browsers.</b></p>
+    <p>please use chrome, firefox, or another browser for the best experience.</p>
+    <p>- bryan hong</p>
     <!-- <p>sorry, please visit on a computer for the interactive fig tree experience.</p> -->
   </div>
 </div>
+
+<script>
+  // Safari detection function
+  function isSafari() {
+    const ua = window.navigator.userAgent;
+    // Check if it has Safari in the user agent but not Chrome
+    // This works for desktop Safari
+    const isSafariDesktop = ua.includes('Safari') && !ua.includes('Chrome');
+    
+    // For iOS Safari (including iOS devices that might use other browser apps)
+    const iOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const webkit = ua.includes('WebKit');
+    const isSafariMobile = iOS && webkit && !ua.includes('CriOS') && !ua.includes('FxiOS');
+    
+    return isSafariDesktop || isSafariMobile;
+  }
+
+  // Only show the warning for Safari browsers
+  const warningElement = document.querySelector('.mobile-warning');
+  if (warningElement) {
+    if (isSafari()) {
+      (warningElement as HTMLElement).style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      
+      // Hide main content and nav when Safari is detected
+      const mainElements = document.querySelectorAll('main, nav');
+      mainElements.forEach(el => {
+        if (el) (el as HTMLElement).style.display = 'none';
+      });
+    }
+  }
+</script>
 
 <style>
   .mobile-warning {
@@ -39,15 +72,10 @@
     color: #666;
   }
 
+  /* Mobile-friendly styles - these will apply to all mobile devices but the warning will only show for Safari */
   @media (max-width: 768px) {
-    .mobile-warning {
-      display: flex;
-    }
-    body {
-      overflow: hidden;
-    }
-    main, nav {
-      display: none !important;
+    .warning-content p {
+      font-size: 1rem;
     }
   }
 </style> 

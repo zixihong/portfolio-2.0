@@ -20,34 +20,34 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <div class="desktop-content">
-      <LoadingScreen />
-      <slot />
-    </div>
-    <div class="mobile-content">
-      <MobileWarning />
-    </div>
+    <MobileWarning />
+    <LoadingScreen />
+    <slot />
   </body>
 </html>
 
+<script>
+  // Add click event for the "how it's made" tooltip on mobile
+  document.addEventListener('DOMContentLoaded', () => {
+    // Only run on mobile
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      // Create a click handler for the pseudo-element
+      document.addEventListener('click', (e) => {
+        // Approximate position of the ::after pseudo-element
+        const rightEdge = window.innerWidth - 1;
+        const topEdge = 1;
+        
+        // Check if click is in the top-right corner where the pseudo-element is
+        if (e.clientX > rightEdge - 120 && e.clientX < rightEdge && 
+            e.clientY > topEdge && e.clientY < topEdge + 40) {
+          window.open('https://github.com/zixihong/portfolio-2.0', '_blank');
+        }
+      });
+    }
+  });
+</script>
+
 <style is:global>
-  .desktop-content {
-    display: block;
-  }
-  
-  .mobile-content {
-    display: none;
-  }
-  
-  @media (max-width: 768px) {
-    .desktop-content {
-      display: none;
-    }
-    .mobile-content {
-      display: block;
-    }
-  }
-  
   html {
     font-family: 'Space Grotesk', sans-serif;
     background: rgb(255, 255, 255);
@@ -71,5 +71,66 @@ const { title } = Astro.props;
     color: #000;
     text-decoration: none;
     font-size: 1.2rem;
+  }
+
+  /* Make fig tree bigger on mobile */
+  @media (max-width: 768px) {
+    #figContainer {
+      justify-content: flex-start !important;
+      padding-left: 0.5rem !important;
+      position: relative;
+    }
+    
+    #figContainer svg {
+      width: 80% !important;
+      height: 80% !important;
+      transform: scale(1.2);
+      margin: 2rem 0;
+      transform-origin: left center;
+    }
+    
+    /* Position the name tooltip under the tree on mobile */
+    #figContainer button {
+      position: absolute !important;
+      top: auto !important;
+      right: auto !important;
+      bottom: 20% !important;
+      left: 50% !important;
+      transform: translateX(-50%) !important;
+      font-size: 1rem !important;
+      padding: 0.5rem 1rem !important;
+      z-index: 1001 !important;
+    }
+    
+    /* Add instruction tooltips for mobile */
+    body::before, body::after {
+      content: "";
+      position: absolute;
+      top: 1rem;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      padding: 0.5rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      z-index: 1001;
+      display: block;
+    }
+    
+    body::before {
+      content: "click figs to explore!";
+      left: 1rem;
+    }
+    
+    body::after {
+      content: "how it's made ↗";
+      right: 1rem;
+      cursor: pointer;
+    }
+    
+    /* Adjust layout for mobile */
+    main {
+      padding: 1rem;
+      overflow-x: hidden;
+    }
   }
 </style>

@@ -143,7 +143,7 @@ import figImage from '../assets/fig_branch_official.svg';
                         let tooltipContent = '';
                         if (low.includes(index)) tooltipContent = 'Entrepreneur';
                         if (middleLow.includes(index)) tooltipContent = 'Researcher';
-                        if (middleUpper.includes(index)) tooltipContent = 'Writer';
+                        if (middleUpper.includes(index)) tooltipContent = 'Yapaholic';
                         if (upper.includes(index)) tooltipContent = 'Engineer';
 
                         path.addEventListener('mouseenter', (event: MouseEvent) => {
@@ -161,7 +161,7 @@ import figImage from '../assets/fig_branch_official.svg';
                             const routes = {
                                 'Entrepreneur': '/entrepreneur',
                                 'Researcher': '/researcher',
-                                'Writer': '/pure-simple-html',
+                                'Yapaholic': '/pure-simple-html',
                                 'Engineer': '/engineer'
                             };
                             const routeKey = tooltipContent as keyof typeof routes;

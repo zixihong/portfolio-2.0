@@ -1,31 +1,25 @@
 <div class="mobile-simplified-view" style="display: none;">
-  <div class="simplified-content">
-    <h1>Bryan Hong</h1>
-    
+  <div class="simplified-content">    
     <div class="ventures-list">
       <div class="venture-category">
-        <h2>Entrepreneur</h2>
-        <a href="/entrepreneur" class="venture-link">My Ventures →</a>
+        <h2>My Ventures</h2>
+        <a href="/entrepreneur" class="venture-link">→</a>
       </div>
       
       <div class="venture-category">
-        <h2>Researcher</h2>
-        <a href="/researcher" class="venture-link">My Research →</a>
+        <h2>My Research</h2>
+        <a href="/researcher" class="venture-link">→</a>
       </div>
       
       <div class="venture-category">
-        <h2>Writer</h2>
-        <a href="/pure-simple-html" class="venture-link">My Writing →</a>
+        <h2>My Thoughts</h2>
+        <a href="/pure-simple-html" class="venture-link">→</a>
       </div>
       
       <div class="venture-category">
-        <h2>Engineer</h2>
-        <a href="/engineer" class="venture-link">My Projects →</a>
+        <h2>My Builds</h2>
+        <a href="/engineer" class="venture-link">→</a>
       </div>
-    </div>
-    
-    <div class="footer-links">
-      <a href="https://linktr.ee/zixihong" target="_blank" rel="noopener noreferrer">More About Me ↗</a>
     </div>
   </div>
 </div>
@@ -101,6 +95,10 @@
 </style>
 
 <script>
+  // Track navigation state
+  let originalUrl = window.location.href;
+  let isSimplifiedViewActive = false;
+  
   // Show the simplified view for iOS/Safari users
   function showSimplifiedView() {
     const simplifiedView = document.querySelector('.mobile-simplified-view');
@@ -113,6 +111,44 @@
       mainElements.forEach(el => {
         if (el) (el as HTMLElement).style.display = 'none';
       });
+      
+      // Update navigation state
+      isSimplifiedViewActive = true;
+      
+      // Push a new state to the history so back button works properly
+      history.pushState({ simplifiedView: true }, '', window.location.href);
     }
   }
+  
+  // Handle back button press
+  window.addEventListener('popstate', (event) => {
+    if (isSimplifiedViewActive) {
+      // Hide simplified view
+      const simplifiedView = document.querySelector('.mobile-simplified-view');
+      if (simplifiedView) {
+        (simplifiedView as HTMLElement).style.display = 'none';
+      }
+      
+      // Show main content again
+      const mainElements = document.querySelectorAll('main, nav');
+      mainElements.forEach(el => {
+        if (el) (el as HTMLElement).style.display = ''; // Restore default display
+      });
+      
+      // Restore scroll
+      document.body.style.overflow = '';
+      
+      // Reset state
+      isSimplifiedViewActive = false;
+      
+      // If there was a mobile warning, show it again
+      const mobileWarning = document.querySelector('.mobile-warning');
+      if (mobileWarning) {
+        (mobileWarning as HTMLElement).style.display = 'flex';
+      }
+    }
+  });
+  
+  // Export the showSimplifiedView function for other components to use
+  window.showSimplifiedView = showSimplifiedView;
 </script> 

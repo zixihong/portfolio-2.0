@@ -271,9 +271,14 @@ import PageLayout from '../layouts/PageLayout.astro';
   @media (max-width: 768px) {
     .projects-grid {
       grid-template-columns: 1fr;
+      max-width: 450px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .title-image {
-      margin: 1rem auto;
+    
+    .project-card {
+      width: 100%;
+      margin: 0 auto;
     }
   }
 </style>

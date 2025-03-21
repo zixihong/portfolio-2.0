@@ -2,8 +2,8 @@
   <div class="warning-content">
     <p><b>sorry, the fig tree experience is not available in safari browsers.</b></p>
     <p><i style="color: #999; font-weight: 300;">safari does not support svg event propagation.</i></p>
-    <button id="viewSimplifiedVersion" class="simplified-button">View Simplified Version</button>
     <p>- <a href="https://linktr.ee/zixihong" target="_blank" rel="noopener noreferrer" style="color: #666; text-decoration: underline;">bryan hong</a></p>
+    <button id="viewSimplifiedVersion" class="simplified-button">safari version</button>
     <!-- <p>sorry, please visit on a computer for the interactive fig tree experience.</p> -->
   </div>
 </div>
@@ -43,20 +43,16 @@
           (warningElement as HTMLElement).style.display = 'none';
           
           // Show simplified view
-          const event = new CustomEvent('showSimplifiedView');
-          document.dispatchEvent(event);
+          if (typeof window.showSimplifiedView === 'function') {
+            window.showSimplifiedView();
+          }
         });
       }
+      
+      // Add to browser history so the back button works
+      history.replaceState({ mobileWarning: true }, '', window.location.href);
     }
   }
-  
-  // Listen for simplified view event
-  document.addEventListener('showSimplifiedView', () => {
-    const simplifiedView = document.querySelector('.mobile-simplified-view');
-    if (simplifiedView) {
-      (simplifiedView as HTMLElement).style.display = 'block';
-    }
-  });
 </script>
 
 <style>

@@ -61,7 +61,7 @@ import figImage from '../assets/fig_branch_official.svg';
                 const paths = document.querySelectorAll<SVGPathElement>('path');
 
                 const tooltip = document.createElement('button');
-                tooltip.innerHTML = 'Bryan Hong ↗';
+                tooltip.innerHTML = 'bryan hong ↗';
                 tooltip.style.cssText = `
                     position: fixed;
                     right: 25%;
@@ -128,7 +128,7 @@ import figImage from '../assets/fig_branch_official.svg';
                 };
 
                 const hideTooltip = () => {
-                    tooltip.innerHTML = 'Bryan Hong ↗';
+                    tooltip.innerHTML = 'bryan hong ↗';
                 };
 
                 paths.forEach((path, index) => {
@@ -141,10 +141,10 @@ import figImage from '../assets/fig_branch_official.svg';
                         path.style.fill = 'rgb(60, 0, 60, 0.75)';
 
                         let tooltipContent = '';
-                        if (low.includes(index)) tooltipContent = 'Entrepreneur';
-                        if (middleLow.includes(index)) tooltipContent = 'Researcher';
-                        if (middleUpper.includes(index)) tooltipContent = 'Yapaholic';
-                        if (upper.includes(index)) tooltipContent = 'Engineer';
+                        if (low.includes(index)) tooltipContent = 'entrepreneur';
+                        if (middleLow.includes(index)) tooltipContent = 'researcher';
+                        if (middleUpper.includes(index)) tooltipContent = 'yaps';
+                        if (upper.includes(index)) tooltipContent = 'engineer';
 
                         path.addEventListener('mouseenter', (event: MouseEvent) => {
                             showTooltip(event, tooltipContent);
@@ -159,10 +159,10 @@ import figImage from '../assets/fig_branch_official.svg';
 
                         path.addEventListener('click', () => {
                             const routes = {
-                                'Entrepreneur': '/entrepreneur',
-                                'Researcher': '/researcher',
-                                'Yapaholic': '/pure-simple-html',
-                                'Engineer': '/engineer'
+                                'entrepreneur': '/entrepreneur',
+                                'researcher': '/researcher',
+                                'yaps': '/thoughts',
+                                'engineer': '/engineer'
                             };
                             const routeKey = tooltipContent as keyof typeof routes;
                             if (routeKey in routes) {

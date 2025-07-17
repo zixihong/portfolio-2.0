@@ -1,0 +1,152 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+---
+
+<PageLayout title="bh's timeline">
+  <main class="page-content">
+    <h1>my timeline</h1>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-date">oct 2024 - jan 2025</div>
+        <div class="timeline-content">
+          <b>founding engineer @ </b><a href="https://correkt.ai" target="_blank" rel="noopener noreferrer" style="text-decoration: none;"><span class="employment-name" style="font-weight: bold; background: linear-gradient(45deg, #4B0082, #800080); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">correkt</span></a>
+          <br>
+          <p>built a multimodal ai search engine for user-generated content with 30k+ users.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">may 2023 - may 2024</div>
+        <div class="timeline-content">
+          <a href="https://www.zoningatlas.org/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+            <span class="lab-name" style="font-weight: bold; background: linear-gradient(45deg, #00c6ff, #0072ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              national zoning atlas
+            </span>
+          </a>
+          <br>
+          <p>developed an interactive map for residential zoning ordinances.</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-date">jun 2022 - aug 2022</div>
+        <div class="timeline-content">
+          <a href="https://www.nanobrainlab.net/" target="_blank" rel="noopener noreferrer" style="text-decoration: none; color: inherit;">
+            <span class="lab-name" style="font-weight: bold; background: linear-gradient(45deg, #FF8C00, #FFA500); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+              ut dallas
+            </span>
+          </a>
+          <br>
+          <p>helped develop a phone app that detects respiratory viruses using nanoparticles.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</PageLayout>
+
+<style>
+  .page-content {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 2rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.5rem;
+  }
+
+  /* Add mobile responsiveness */
+  @media (max-width: 768px) {
+    .page-content {
+      font-size: 1.2rem;
+      padding: 1rem;
+    }
+    
+    .timeline-item {
+      width: 100%;
+      padding: 15px 20px;
+    }
+    
+    .timeline-content {
+      padding: 15px;
+    }
+    
+    .timeline-date {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .page-content {
+      font-size: 1rem;
+    }
+    
+    .timeline-date {
+      font-size: 0.8rem;
+    }
+  }
+
+  .timeline {
+    position: relative;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #e0e0e0;
+    left: 50%;
+    margin-left: -2px;
+  }
+
+  .timeline-item {
+    padding: 20px 40px;
+    position: relative;
+    width: 50%;
+  }
+
+  .timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: center;
+  }
+
+  .timeline-item:nth-child(even) {
+    left: 50%;
+    text-align: center;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    border: 4px solid #ff0000;
+    top: 25px;
+    left: -10px;
+    z-index: 1;
+  }
+
+  .timeline-item:nth-child(even)::before {
+    left: auto;
+    right: -10px;
+  }
+
+  .timeline-date {
+    font-weight: bold;
+    color: #000000;
+    margin-bottom: 10px;
+  }
+
+  .timeline-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+</style> 
